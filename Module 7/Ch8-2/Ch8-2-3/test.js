@@ -6,13 +6,10 @@ var clientSchema = mongoose.Schema({
     address : String
 });
 var Client = mongoose.model("clients", clientSchema);
-Client.find({ $or : [ { lastname : "Clinton" }, { firstname : "Barack"} ] })
-.where("lastname")
-.eq("Clinton")
-.exec()
-.then(function(clients) {
-    console.log(clients); 
-})
-.catch(function(err) {
-    console.log(err); 
+Client.deleteOne({ lastname : "Clinton" }, function(err, response) {
+    console.log("After Clinton's removal");
+    console.log("response = ", response);
+    Client.find(function(err, clients) {
+        console.log("clients = ", clients);
+    });
 });
